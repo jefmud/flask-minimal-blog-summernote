@@ -8,7 +8,7 @@ This is meant not to be a serious blogging tool, but has minimal functionality t
 these particular tools into a bigger project.  Note that there is NO login or userid, etc. If you want that, then
 I suggest using the package Flask-Login (simple implementation) or for a more comprehesive application, Flask-Security.
 
-In addition, the app.run of Flask is blocking.  This entails finding a suitable HTTP/HTTPS server.  In the past I have used Gunicorn to deploy the app as a worker on an Nginx/Apache server or a simple Tornado wrapper can also work pretty well.
+In addition, the app.run of Flask is blocking.  This entails finding a suitable HTTP/HTTPS server.  In the past I have used Gunicorn to deploy the app as a worker on an Nginx/Apache server or a simple Tornado wrapper can also work pretty well.  See this project if you are interested in trying that approach: https://github.com/jefmud/flask-tornado
 
 The blog has 4 routes:
 1. '/' is the index of all pages
