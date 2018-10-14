@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>bootstrap4</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class='container'>
+      <h1 class='title'><a href="{{url_for('index')}}">The Blog</a></h1>
+      <ul>
+      {% for page in pages %}
+      <li><a href="{{url_for('page_view',id=page._id)}}">{{page.title}}</a></li>
+      {% endfor %}
+      </ul>
+      <p>
+      <a href='{{url_for('page_edit')}}'>Create a new page</a>
+      </p>
+    </div>
+  </body>
+</html>

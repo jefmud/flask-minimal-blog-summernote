@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>bootstrap4</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+  </head>
+  <body>
+    <div class='container'>
+    {% if status %}
+    <p><font color="red">{{status}}</font></p>
+    {% endif %}
+    <form method="post">
+      <div class='form-group'>
+        <label for='title'>Title</label>
+        <input type='text' class='form-control' id='title' name='title' value="{{page.title}}" />
+      </div>
+      <div class='form-group'>
+        <label for='summernote'>Content</label>
+        <textarea id="summernote" name="editordata" class='form-control'>{{page.content}}</textarea>
+        <script>
+        $('#summernote').summernote({
+          placeholder: 'Enter some content here.',
+          tabsize: 2,
+          height: 100
+        });
+      </script>
+      </div>
+      <div class='form-group'>
+        <button type="submit" class="btn btn-info">Save</button>
+        <button type="cancel" class="btn btn-secondary">Cancel</button>
+        {% if page._id %}
+          <a href="{{url_for('page_delete',id=page._id)}}"><button type="button" class="btn btn-danger">Delete</button></a>
+        {% endif %}
+      </div>
+      
+    </form>
+    
+    </div>
+  </body>
+</html>
