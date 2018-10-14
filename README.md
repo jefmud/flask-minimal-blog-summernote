@@ -12,8 +12,8 @@ In addition, the app.run of Flask is blocking.  This entails finding a suitable 
 
 The blog has 4 routes:
 1. '/' is the index of all pages
-2. '/view/<id>' shows a page with a particular id (this is the actual MongoDB id of the object)
-3. '/edit' and '/edit/<id>' if no id is supplied, a new page is created.  if a valid id is presented, edit the page
+2. '/view/\<id\>' shows a page with a particular id (this is the actual MongoDB id of the object)
+3. '/edit' and '/edit/\<id\>' if no id is supplied, a new page is created.  if a valid id is presented, edit the page
 4. '/delete/<id>' delete a page with a particular ID.
 
 Flask: http://flask.pocoo.org/
