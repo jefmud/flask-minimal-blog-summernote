@@ -2,11 +2,13 @@
 
 A minimal Flask blog with Summernote and TinyMongo
 
-An example how a very minimal Flask blog using TinyMongo (as an local database) and Summernote (as visual control).
+This project serves as an example of a very minimal Flask blog using TinyMongo (as an local database) and Summernote (as visual control).
 
-This is meant not to be a serious tool, but has minimal functionality to demonstrate how a larger blog could leverage
+This is meant not to be a serious blogging tool, but has minimal functionality to demonstrate how a larger blog could leverage
 these particular tools into a bigger project.  Note that there is NO login or userid, etc. If you want that, then
 I suggest using the package Flask-Login (simple implementation) or for a more comprehesive application, Flask-Security.
+
+In addition, the app.run of Flask is blocking.  This entails finding a suitable HTTP/HTTPS server.  In the past I have used Gunicorn to deploy the app as a worker on an Nginx/Apache server or a simple Tornado wrapper can also work pretty well.
 
 The blog has 4 routes:
 1. '/' is the index of all pages
