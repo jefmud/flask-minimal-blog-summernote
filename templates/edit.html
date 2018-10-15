@@ -2,11 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>bootstrap4</title>
+    <title>TinyMongo Blog</title>
+    {# Bootstrap 4 CDN (downloads remote data from content delivery network) #}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    {# the javascript could be included at the bottom of the page for faster loading #}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    {# below is the CDN for the SummerNote control #}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
   </head>
@@ -21,6 +24,7 @@
         <input type='text' class='form-control' id='title' name='title' value="{{page.title}}" />
       </div>
       <div class='form-group'>
+        {# including the SummerNote control on the form, from CDN #}
         <label for='summernote'>Content</label>
         <textarea id="summernote" name="editordata" class='form-control'>{{page.content}}</textarea>
         <script>
@@ -32,9 +36,11 @@
       </script>
       </div>
       <div class='form-group'>
-        <button type="submit" class="btn btn-info">Save</button>
-        <button type="cancel" class="btn btn-secondary">Cancel</button>
+        {# note we use same name for Save and Cancel buttons, but a different value #}
+        <button type="submit" name="submit" value="submit" class="btn btn-info">Save</button>
+        <button type="cancel" name="submit" value="cancel" class="btn btn-secondary">Cancel</button>
         {% if page._id %}
+        {# Delete button works as a link to the delete api/method #}
           <a href="{{url_for('page_delete',id=page._id)}}"><button type="button" class="btn btn-danger">Delete</button></a>
         {% endif %}
       </div>

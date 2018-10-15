@@ -1,6 +1,8 @@
 """
 An example how a very minimal Flask blog using TinyMongo (as an local database) and Summernote (as visual control).
 
+Note: I include verbose comments for people that are using this code as tutorial.
+
 This is meant not to be a serious tool, but has minimal functionality to demonstrate how a larger blog could leverage
 these particular tools into a bigger project.  Note that there is NO login or userid, etc. If you want that, then
 I suggest using the package Flask-Login (simple implementation) or for a more comprehesive application, Flask-Security.
@@ -31,11 +33,12 @@ DB = TinyMongoClient().blog
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
+    """404 error handler-- 404 status set explicitly"""
     return render_template('404.html'), 404
             
 @app.route('/')
 def index():
+    """return all the pages to a user view"""
     pages = DB.blog.find()
     return render_template('page_list.html', pages=pages)
 
@@ -44,7 +47,8 @@ def page_view(id):
     """view a page by id or 404 if does not exist"""
     page = DB.blog.find_one({'_id':id})
     if page is None:
-        return abort(404)
+        # 
+        abort(404)
     
     return render_template('view.html', page=page)
 
@@ -55,7 +59,7 @@ def page_edit(id=None):
     """edit serves to edit an existing page with a particular id, or create a new page"""
     status = ''
     if id:
-        # get page, if it doesn't exist, abort to 404 page
+        # find the page by its id, if it doesn't exist page = None, abort to 404 page
         page = DB.blog.find_one({'_id':id})
         if page is None:
             abort(404)
@@ -65,17 +69,28 @@ def page_edit(id=None):
         page = {'title': '', 'content': ''}
         
     if request.method == 'POST':
-        # user hit submit, get the data from the form.
+        # check if user cancel was pressed.
+        if request.form['submit'] == 'cancel':
+            if id:
+                # user canceled a page edit, return to page view
+                return redirect(url_for('page_view', id=id))
+            else:
+                # user canceled a new page creation, return to index
+                return redirect(url_for('index'))
+            
+        # user hit submit, so get the data from the form.
         page['title'] = request.form.get('title')
         page['content'] = request.form.get('editordata')
+        # look for required title and content
         if page['title'] != '' and page['content'] != '':
-            # check if the required title and content are present
+            # now, update or insert into database
             if id:
                 # update an existing page
                 DB.blog.update_one({'_id':id}, page)
             else:
                 # insert a new page and get its id.
                 id = DB.blog.insert_one(page).inserted_id
+            # redirect to page view
             return redirect(url_for('page_view', id=id))
         else:
             # indicate a failure to enter required data
@@ -94,5 +109,5 @@ def page_delete(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    # should not be used in production since Flask uses a blocking server
+    # note: app.run should not be used in production for a variety of reasons.
     app.run(debug=False, port=5000, host='127.0.0.1')
